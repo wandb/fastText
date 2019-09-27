@@ -13,6 +13,7 @@
 #include <atomic>
 #include <chrono>
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <queue>
 #include <set>
@@ -39,6 +40,7 @@ class FastText {
   std::shared_ptr<Model> model_;
   std::atomic<int64_t> tokenCount_{};
   std::atomic<real> loss_{};
+  //std::ofstream logLoss; 
   std::chrono::steady_clock::time_point start_;
   bool quant_;
   int32_t version;
@@ -75,6 +77,7 @@ class FastText {
 
  public:
   FastText();
+
 
   int32_t getWordId(const std::string& word) const;
 

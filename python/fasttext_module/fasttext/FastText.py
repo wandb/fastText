@@ -55,6 +55,9 @@ class _FastText(object):
     def is_quantized(self):
         return self.f.isQuant()
 
+    #def get_loss(self):
+    #    return self.f.getLossInfo()
+
     def get_dimension(self):
         """Get the dimension (size) of a lookup vector (hidden layer)."""
         a = self.f.getArgs()

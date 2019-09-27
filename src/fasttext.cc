@@ -19,6 +19,11 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <fstream>
+
+using namespace std;
+
+
 
 namespace fasttext {
 
@@ -246,6 +251,15 @@ void FastText::loadModel(std::istream& in) {
   model_ = std::make_shared<Model>(input_, output_, loss, normalizeGradient);
 }
 
+//int writeFile(real loss) 
+//{
+//  ofstream myfile;
+//  myfile.open("logs");
+//  myfile << loss << "\n";
+//  myfile.close();
+//  return 0;
+//}
+
 void FastText::printInfo(real progress, real loss, std::ostream& log_stream) {
   double t = utils::getDuration(start_, std::chrono::steady_clock::now());
   double lr = args_->lr * (1.0 - progress);
@@ -258,7 +272,13 @@ void FastText::printInfo(real progress, real loss, std::ostream& log_stream) {
     eta = t * (100 - progress) / progress;
     wst = double(tokenCount_) / t / args_->thread;
   }
+  
+  ofstream logfile;
+  logfile.open("logs", fstream::app);
+  logfile << loss << "\n";
+  //logfile.close();
 
+   //std::cerr << " LOSS " << loss  << std::endl << std::flush;
   log_stream << std::fixed;
   log_stream << "Progress: ";
   log_stream << std::setprecision(1) << std::setw(5) << progress << "%";
